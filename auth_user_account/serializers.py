@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import accountUser
+from .models import accountUser,UserProfile
 
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import smart_str, force_bytes, DjangoUnicodeDecodeError
@@ -32,11 +32,18 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(style={'input_type': 'password'})   
 
 
+
+# user profie serializer
+class UserProfileSerializer(serializers.ModelSerializer):
+   class Meta:
+      model=UserProfile
+      fields=['profile_picture']
 #user profile serializer
 class UserSerializer(serializers.ModelSerializer):
+    user_profile = UserProfileSerializer(source='user', read_only=True)
     class Meta:
         model = accountUser
-        fields = ['id', 'username', 'email','is_superuser']
+        fields = ['id', 'username', 'email','is_superuser','user_profile']
 
 
 # mail send serializers

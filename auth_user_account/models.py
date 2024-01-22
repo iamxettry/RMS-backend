@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager, PermissionsMixin
 from django.utils import timezone
-
+from django.contrib.auth import get_user_model
 class accountManager(BaseUserManager):
     def create_user(self,username,email,password=None,**extra_fields):
         if not email:
@@ -47,3 +47,7 @@ class accountUser(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         return self.email
 
+
+class UserProfile(models.Model):
+    user=models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    profile_picture=models.ImageField(blank=True,null=True , upload_to='profileImg/', height_field=None, width_field=None, max_length=None)
