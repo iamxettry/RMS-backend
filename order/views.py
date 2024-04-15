@@ -17,7 +17,7 @@ class OrderListCreateAPIView(APIView):
     def get(self, request):
         orders = Order.objects.all()
         serializer = OrderSerializer(orders, many=True)
-
+      
         for order_data in serializer.data:
             order = Order.objects.get(id=order_data["id"])
             order_data["account"] = UserSerializer(order.account).data
@@ -28,6 +28,7 @@ class OrderListCreateAPIView(APIView):
     def post(self, request):
         # handle both single and multiple data
         data = request.data
+        print(data)
         if isinstance(data, list):
             # handle multiple data
             serializer = OrderSerializer(data=data, many=True)

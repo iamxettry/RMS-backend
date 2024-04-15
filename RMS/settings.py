@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'auth_user_account',
     'menu',
     'order',
+    'payment',
 
 
     'rest_framework',

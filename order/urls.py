@@ -11,3 +11,4 @@ urlpatterns = [
     path('carts/<int:pk>/', CartDataForuser.as_view(), name='cart-detail'),
 
 ]
+

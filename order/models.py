@@ -1,16 +1,18 @@
 from django.db import models
 from decimal import Decimal
-
+import uuid
 
 # model for order
 
 class Order(models.Model):
+    order_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     account=models.ForeignKey('auth_user_account.accountUser', on_delete=models.CASCADE)
     menu_item=models.ForeignKey('menu.MenuItem', on_delete=models.CASCADE)
     order_date=models.DateTimeField(auto_now_add=True)
     quantity = models.FloatField()
     totalPrice=models.FloatField(blank=True,null=True)
     complete=models.BooleanField(default=False)
+    paid = models.BooleanField(default=False)
 
     class Meta:
         verbose_name="Order"
